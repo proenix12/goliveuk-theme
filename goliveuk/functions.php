@@ -221,3 +221,7 @@ class My_Walker_Nav_Menu extends Walker_Nav_Menu {
 				$output .= "\n$indent</ul></div>\n";
 		}
 }
+function print_r2($val){
+    
+    return '<pre>'.print_r($val).'</pre>';
+}
