@@ -11,6 +11,12 @@ jQuery(document).ready(function () {
     //     }
     // }
 
+
+    // function validateFields(cclas, error_message) {
+    //     let element = jQuery(cclas);
+    //     element.css('display', 'block').find('span').find('span').html(error_message);
+    // }
+
     //reset inputs
     // jQuery('form#contactForm  :input, form#leftForm  :input').focus(function () {
     //     jQuery(this).css({"border": "1px solid"});
@@ -25,10 +31,19 @@ jQuery(document).ready(function () {
     //             type: 'POST',
     //             url: MyAjax.ajaxurl,
     //             data: {
-    //                 'action': 'contactUsForm',
+    //                 'action': 'contactForm',
     //             },
     //             success: function (data) {
+    //                 let empty_form = string_splitter(data, 'emptyForm');
+
+                        // if (error_errorTerms != '') {
+                        //     validateFields('.errorTerms', error_errorTerms)
+                        // }
     //                 console.log(data);
+
+    // if (success == 'success') {
+    //     thisForm[0].reset();
+    // }
     //             },
     //             error: function (errorThrown) {
     //                 console.log(errorThrown);

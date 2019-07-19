@@ -1,14 +1,20 @@
 <!doctype html>
-<html lang = "en">
-<head>
-    <meta charset = "UTF-8">
+<html <?php language_attributes(); ?>>
+<head >
+    <meta charset="<?php bloginfo( 'charset' ); ?>" />
     <meta name = "viewport"
-          content = "width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv = "X-UA-Compatible" content = "ie=edge">
+          content = "width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" >
+    <meta http-equiv = "X-UA-Compatible" content = "ie=edge" >
+    <title ><?php bloginfo('name'); ?></title >
+    <?php if ( ! function_exists( 'has_site_icon' ) || ! has_site_icon() ) : ?>
+        <?php if ( get_theme_mod('site_favicon') ) : ?>
+            <link rel="shortcut icon" href="<?php echo esc_url(get_theme_mod('site_favicon')); ?>" />
+        <?php endif; ?>
+    <?php endif; ?>
+    <link rel="profile" href="http://gmpg.org/xfn/11">
     <?php wp_head(); ?>
-    <title><?php bloginfo('name'); ?></title>
-</head>
-<body>
+</head >
+<body <?php echo body_class(); ?>>
 <?php
 //Display menu
 //$leftMenu = array(

@@ -44,6 +44,27 @@ if ( function_exists( 'add_theme_support' ) ) {
     add_image_size( 'category-thumb', 360, 9999 ); //300 pixels wide (and unlimited height)
 }
 
+function mytheme_customize_register($wp_customize)
+{
+    $wp_customize->add_section('copyright_extras_section', [
+        'title' => 'Copyright Text Section'
+    ]);
+
+    //adding setting for copyright text
+    $wp_customize->add_setting('text_setting', [
+        'default' => 'Default Text For copyright Section',
+    ]);
+
+
+    $wp_customize->add_control('text_setting', [
+        'label'   => 'Copyright text',
+        'section' => 'copyright_extras_section',
+        'type'    => 'text',
+    ]);
+}
+add_action('customize_register', 'mytheme_customize_register');
+//get_theme_mod = echo get_theme_mod('text_setting');
+
 
 //Option Page
 //if( function_exists('acf_add_options_page') ) {
@@ -101,6 +122,36 @@ if ( function_exists( 'add_theme_support' ) ) {
 //
 //    register_post_type( 'Project', $args );
 //}
+
+
+//register post texonomy
+// add_action('init', 'crunchify_create_deals_custom_taxonomy', 0);
+// function crunchify_create_deals_custom_taxonomy()
+// {
+
+//     $labels = [
+//         'name'              => _x('Types', 'taxonomy general name'),
+//         'singular_name'     => _x('Type', 'taxonomy singular name'),
+//         'search_items'      => __('Search Types'),
+//         'all_items'         => __('All Types'),
+//         'parent_item'       => __('Parent Type'),
+//         'parent_item_colon' => __('Parent Type:'),
+//         'edit_item'         => __('Edit Type'),
+//         'update_item'       => __('Update Type'),
+//         'add_new_item'      => __('Add New Type'),
+//         'new_item_name'     => __('New Type Name'),
+//         'menu_name'         => __('Types'),
+//     ];
+
+//     register_taxonomy('types', ['faq'], [
+//         'hierarchical'      => TRUE,
+//         'labels'            => $labels,
+//         'show_ui'           => TRUE,
+//         'show_admin_column' => TRUE,
+//         'query_var'         => TRUE,
+//         'rewrite'           => ['slug' => 'type'],
+//     ]);
+// }
 
 //validation function
 function filterContactData($data = '') {
@@ -225,3 +276,43 @@ function print_r2($val){
     
     return '<pre>'.print_r($val).'</pre>';
 }
+
+//Static front pages uses get_query_var( 'page' ) and not get_query_var( 'paged' ).
+function custom_pagination($loop)
+{
+
+    $total_pages = $loop->max_num_pages;
+
+    if ($total_pages > 1) {
+
+        $current_page = max(1, get_query_var('paged'));
+
+        echo "<nav class='footer-pagination'>" . paginate_links([
+                'base'      => get_pagenum_link(1) . '%_%',
+                'format'    => '/page/%#%',
+                'current'   => $current_page,
+                'total'     => $total_pages,
+                'show_all'  => FALSE,
+                'end_size'  => 1,
+                'mid_size'  => 2,
+                'prev_next' => TRUE,
+                'prev_text' => __('« prev'),
+                'next_text' => __('next »'),
+            ]) . "</nav>";
+    }
+}
+//$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+/* 
+$args = [
+    'post_type'      => 'post',
+    'posts_per_page' => 6,
+    'paged'          => $paged,
+]; 
+*/
+//$post_query = new WP_Query($args);
+//custom_pagination($post_query);
+
+
+// add_action('wp_ajax_contactForm', 'contactForm');
+// add_action('wp_ajax_nopriv_contactForm', 'contactForm');
+// function contactForm(){}
